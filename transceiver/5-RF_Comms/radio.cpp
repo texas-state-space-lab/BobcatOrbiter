@@ -10,7 +10,7 @@ int radioConfig(){
 
   int byteNumber = 0;
   int cmdNumber =1;
-  
+  Serial.print(cfg[byteNumber] != 0x00);
   while(cfg[byteNumber] != 0x00){ // while the length of the command is different of zero (while there is any command left) 
     
     uint8_t cmdLength = cfg[byteNumber]; //the first byte is the length of the command
@@ -65,7 +65,6 @@ int radioInit(){
   //Configures the transceiver
   int cfgResult = radioConfig();
 
-  
   if (cfgResult ==0){ // if the configuration was successful
     uint8_t cmd[]= {GET_INT_STATUS, 0xFB, 0x7F, 0x7F}; //Cmd: Clear all interrupt flag
     if (radioCommand(cmd, sizeof(cmd))){
@@ -148,8 +147,8 @@ bool radioCommand(const char* write_buf, char write_len, char* read_buf, char re
 
 
     //Now let's make sure the command was executed and read the answer if there is any
-    while ((done!=true) && (count < 1500)){ // Up to 1500 retry to check if the radio is ready 
-      
+    while ((done!=true) && (count < 15000)){ // Up to 1500 retry to check if the radio is ready 
+
       RADIO_CTRL_PORT &= ~SS_radio;
       SPI.transfer(READ_CMD_BUFF);
       //Let's check if the radio is ready
