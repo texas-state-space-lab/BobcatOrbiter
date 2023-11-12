@@ -1,2 +1,2 @@
-# bobcat-orbiter
+# BobcatOrbiter
 Interorbital TubeSat 2.0
