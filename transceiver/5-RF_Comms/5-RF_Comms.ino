@@ -9,7 +9,7 @@
 
 //===============================================================================================
 /* This program demonstrate communication via radio signal.
- * You will need a second radio to be able realise this exemple.
+ * You will need a second radio to be able realise this example.
  * 
  * In this example, communication is only one way. The satellite is acting either as a receiver
  * or a transmitter but ot both.
@@ -27,7 +27,7 @@
 
 #include "radio.h"
 
-#define RECEIVE true // If false, the transceiver will be set as transmitter. If true, will be set as receiver.
+#define RECEIVE false // If false, the transceiver will be set as transmitter. If true, will be set as receiver.
 
 
 /*
@@ -87,7 +87,6 @@ void printRadioInfo(){
   else Serial.println("Radio not ready");
   float radioVoltage=0;
   float radioTemp=0;
- // Serial.println(&radioVoltage.toCharArray());
   radioBatTemp(&radioVoltage, &radioTemp);
   Serial.println( "Radio Voltage: \t\t" +String(radioVoltage) + "V");
   Serial.println("Radio Temperature: \t" + String(radioTemp) + "°C");
@@ -193,24 +192,15 @@ void loop() {
 
   //If the transceiver as been as a transmitter
   if (RECEIVE == false){ 
-    float bat = 0;
-    float temp = 0;
+
     //The message that will be sent is "HELLO!!"
-    radioBatTemp(&bat,&temp);
- //   char test = String(bat) + String(temp);
-    //unint8_t info[(String(bat)+String(temp)).length()];
-    
-
-
-
-    uint8_t FIFOCmd[] = {WRITE_TX_FIFO, 0x48, 0x45, 0x4C, 0x4C, 0x4F, 0x21, 0x21, bat, temp}; 
+    uint8_t FIFOCmd[] = {WRITE_TX_FIFO, 0x48, 0x45, 0x4C, 0x4C, 0x4F, 0x21, 0x21};
 
     //It needs to be written to the FIFO buffer before being transmitted
     RADIO_CTRL_PORT &= ~SS_radio; 
     for( int i =0; i<sizeof(FIFOCmd); i++){
       SPI.transfer(FIFOCmd[i]);
     }
-    Serial.println("THIS: " + ~SS_radio);
     RADIO_CTRL_PORT |= SS_radio;
 
     //Now the radio can be set in Tx mode and start transmitting what is in the FIFO buffer
@@ -252,8 +242,7 @@ void loop() {
           uint8_t Read[]= {READ_RX_FIFO};
 
           //Let's create an array to store the received bytes
-          // uint8_t rx[siz[0]];
-          uint8_t rx[8];
+          uint8_t rx[siz[0]];
 
           //Then initialize i
           for (int i = 0; i< sizeof(rx); i++){ 
@@ -274,7 +263,6 @@ void loop() {
             Serial.write(rx[i]);
             Serial.print("\t");  
           }
-          Serial.print("END"); 
         }
 
         //Once this is done, let's clear the FIFO buffer

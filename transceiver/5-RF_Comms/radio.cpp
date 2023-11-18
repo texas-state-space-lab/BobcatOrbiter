@@ -10,7 +10,6 @@ int radioConfig(){
 
   int byteNumber = 0;
   int cmdNumber =1;
-  Serial.print(cfg[byteNumber] != 0x00);
   while(cfg[byteNumber] != 0x00){ // while the length of the command is different of zero (while there is any command left) 
     
     uint8_t cmdLength = cfg[byteNumber]; //the first byte is the length of the command
@@ -64,6 +63,7 @@ int radioInit(){
 
   //Configures the transceiver
   int cfgResult = radioConfig();
+
 
   if (cfgResult ==0){ // if the configuration was successful
     uint8_t cmd[]= {GET_INT_STATUS, 0xFB, 0x7F, 0x7F}; //Cmd: Clear all interrupt flag
