@@ -1,4 +1,3 @@
-
 /*
  * Interorbital Systems' satellite kit demo program
  * Demo-Comm
@@ -193,9 +192,9 @@ void loop() {
 
   //If the transceiver as been as a transmitter
   if (RECEIVE == false){ 
-    
+
     //The message that will be sent is "HELLO!!"
-    uint8_t FIFOCmd[] = {WRITE_TX_FIFO, 0x48, 0x45, 0x4C, 0x4C, 0x4F, 0x21, 0x21}; 
+    uint8_t FIFOCmd[] = {WRITE_TX_FIFO, 0x48, 0x45, 0x4C, 0x4C, 0x4F, 0x21, 0x21};
 
     //It needs to be written to the FIFO buffer before being transmitted
     RADIO_CTRL_PORT &= ~SS_radio; 
@@ -244,7 +243,7 @@ void loop() {
 
           //Let's create an array to store the received bytes
           uint8_t rx[siz[0]];
-          
+
           //Then initialize i
           for (int i = 0; i< sizeof(rx); i++){ 
             rx[i]=0xFF;
