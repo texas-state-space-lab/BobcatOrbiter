@@ -1,35 +1,7 @@
-
-/*
- * Interorbital Systems' satellite kit demo program
- * Demo-Comm
- * Version 1.0, July 2020
- * Author: Sylvain BURDOT (SGLB)
- * 
- * This is a demo program to get you started with you satellite. It is neither complete nor optimized to access the full functions of the kit. 
- */
-
-//===============================================================================================
-/* This program demonstrate communication via radio signal.
- * You will need a second radio to be able realise this example.
- * 
- * In this example, communication is only one way. The satellite is acting either as a receiver
- * or a transmitter but ot both.
- * 
- * radio_config_Si4464.h is the configuration file for the transceiver. 
- * In this file are located all the parameters of the different register of the transceiver that 
- * are loaded on boot up. You will have to create your one for your own application. 
- * 
- * WARNING: when setting the output power of the transceiver up, do not go over 0x10.
- * Otherwise the power received at the input of the power amplifier will exceed the maximum value 
- * from the datasheet.
- */
-//===============================================================================================
-
-
-#include "radio.h"
+#include "radio_pinout.h"
+#include "../../ext/radio-si4464-1.0.0/include/radio.h"
 
 #define RECEIVE false // If false, the transceiver will be set as transmitter. If true, will be set as receiver.
-
 
 /*
  * This fonction is here for debugging purpose.

@@ -1,8 +1,5 @@
 #include "radio.h"
 
-
-
-
 /*
  * This function configures the transceiver
  */

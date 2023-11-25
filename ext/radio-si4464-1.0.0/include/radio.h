@@ -1,8 +1,6 @@
-//#include <avr/io.h>
-
-#include "radio_config_Si4464.h"
-
+#include "radio_config.h"
 #include <SPI.h>
+
 //the list of following commans comes from the Silabs AN633
 
 //Boot command
@@ -41,34 +39,9 @@
 #define GET_PH_STATUS              0x21
 #define GET_CHIP_STATUS            0x23
 
-
 #define CTS 0xFF
 
-
-#define RADIO_CTRL_PORT       PORTL
-#define RADIO_CTRL_PORT_DIR   DDRL
-//#define RADIO_CTRL_PORT       PORTL
-//#define RADIO_CTRL_PORT_DIR   DDRL
-
-#define RADIO_INT_PORT        PORTE
-#define RADIO_INT_PORT_DIR    DDRE
-
-#define SS_radio    0b00000100
-#define SDN         0b00001000
-#define Bypass      0b00010000
-#define EN_PA       0b00100000
-#define nIRQ        0b00100000
-
-/*#define SS_radio    0b00000010
-
-#define SDN         0b00001000
-#define EN_PA       0b00010000
-#define Bypass      0b00100000*/
-
-
 static const uint8_t cfg[] = RADIO_CONFIGURATION_DATA_ARRAY;
-
-
 
 int radioInit();
 void radioShutdown();
